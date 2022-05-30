@@ -7,7 +7,7 @@ const app = express();
 
 app.use(express.json());
 
-app.use("/api/v1", authRouther);
+app.use("/api/v1/auth", authRouther);
 
 const PORT = process.env.PORT || 3001;
 
