@@ -16,25 +16,22 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-
-userSchema.pre("save", async function(next)
-{
+userSchema.pre("save", async function (next) {
   const user = this;
-  if(!user.isModified("password")) return next();
+  if (!user.isModified("password")) return next();
 
-    try {
-       const salt = await bcryptjs.genSalt(10)
-        user.password = await bcryptjs.hash(user.password, salt)
-      } catch (error) {
-        next()
-      console.log(error)
-      throw new Error("Falló el hash de constraseña")
-    }
-})
+  try {
+    const salt = await bcryptjs.genSalt(10);
+    user.password = await bcryptjs.hash(user.password, salt);
+  } catch (error) {
+    next();
+    console.log(error);
+    throw new Error("Falló el hash de constraseña");
+  }
+});
 
-userSchema.methods.comparePassword = async function(clientPassword){
-  return await bcryptjs.compare(clientPassword, this.password)
+userSchema.methods.comparePassword = async function (clientPassword) {
+  return await bcryptjs.compare(clientPassword, this.password);
 };
-
 
 export const User = mongoose.model("User", userSchema);
