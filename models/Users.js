@@ -23,8 +23,8 @@ userSchema.pre("save", async function (next) {
   try {
     const salt = await bcryptjs.genSalt(10);
     user.password = await bcryptjs.hash(user.password, salt);
-  } catch (error) {
     next();
+  } catch (error) {
     console.log(error);
     throw new Error("Falló el hash de constraseña");
   }

@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+
 export const requireToken = (req, res, next) => {
   try {
     let token = req.headers?.authorization;
@@ -19,6 +20,7 @@ export const requireToken = (req, res, next) => {
       "jwt expired": "JWT expirado",
       "invalid token": "Token no válido",
       "No Bearer": "Utiliza formato Bearer",
+      "jwt malformed": "JWT formato no válido",
     };
     return res
       .status(401)
