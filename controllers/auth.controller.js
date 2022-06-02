@@ -1,6 +1,5 @@
 import { User } from "../models/Users.js";
 import { generateRefreshToken, generateToken } from "../utils/tokenManager.js";
-import jwt from "jsonwebtoken";
 
 export const register = async (req, res) => {
   const { email, password } = req.body;
@@ -14,8 +13,10 @@ export const register = async (req, res) => {
     await user.save();
 
     // Generar token JWT
+    const { token, expiresIn } = generateToken(user.id);
+    generateRefreshToken(user.id, res);
 
-    return res.status(201).json({ ok: true });
+    return res.status(201).json({ token, expiresIn });
   } catch (error) {
     console.log(error.code);
 
@@ -42,6 +43,7 @@ export const login = async (req, res) => {
 
     const { token, expiresIn } = generateToken(user.id);
     generateRefreshToken(user.id, res);
+
     return res.json({ token, expiresIn });
   } catch (error) {
     console.log(error);
