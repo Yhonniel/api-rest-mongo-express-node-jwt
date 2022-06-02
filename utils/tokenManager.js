@@ -27,13 +27,10 @@ export const generateRefreshToken = (uid, res) => {
   }
 };
 
-export const errorsValidateToken = (error) => {
-  switch (error) {
-    case "invalid signature":
-      return "firma no válida";
-    case "jwt expired":
-      "Token expirado";
-    case "invalid token":
-      return "No invente token";
-  }
+export const tokenVerificationErrors = {
+  "invalid signature": "La firma de JWT no es válida",
+  "jwt expired": "JWT expirado",
+  "invalid token": "Token no válido",
+  "No Bearer": "Utiliza formato Bearer",
+  "jwt malformed": "JWT formato no válido",
 };
