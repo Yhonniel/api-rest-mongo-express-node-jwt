@@ -21,6 +21,7 @@ app.use(
       }
       return callback("Error de CORS origin: " + origin + " No autorizado!");
     },
+    credentials: true,
   })
 );
 
